@@ -502,6 +502,58 @@
             color: #6b7280;
         }
         
+        /* Strategies Section */
+        .strategies-section {
+            padding: 60px 20px;
+            background: #0a0a0f;
+        }
+        
+        .strategies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .strategy-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .strategy-num {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        
+        .strategy-content {
+            flex: 1;
+        }
+        
+        .strategy-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        
+        .strategy-desc {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+        
         .week-btn:hover {
             border-color: rgba(139, 92, 246, 0.5);
             color: #a5b4fc;
@@ -782,11 +834,11 @@
 </head>
 <body>
     <section class="hero">
-        <div class="badge">v0.7 · Из грязи в князи</div>
+        <div class="badge">v0.8 · Из грязи в князи</div>
         <h1 class="title">TOOYAKOV</h1>
         <p class="subtitle">Диас Мухтарович · Монополист</p>
         <div class="goal-amount"><span>50 000 000 ₸</span></div>
-        <p class="goal-label">🏠 Первая квартира к 23 годам</p>
+        <p class="goal-label">🏠 Первая квартира к 23 годам · без ипотеки и кредита</p>
         
         <div class="progress-wrapper">
             <div class="progress-labels">
@@ -907,12 +959,62 @@
             </div>
         </div>
         
-        <a href="#progress" class="scroll-indicator">
-            <span>Прогресс</span>
+        <a href="#strategies" class="scroll-indicator">
+            <span>Стратегии</span>
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
             </svg>
         </a>
+    </section>
+    
+    <section class="strategies-section" id="strategies">
+        <h2 class="section-title">⚔️ Стратегии</h2>
+        <p class="section-subtitle">Принципы достижения цели</p>
+        
+        <div class="strategies-grid">
+            <div class="strategy-card">
+                <div class="strategy-num">1</div>
+                <div class="strategy-content">
+                    <div class="strategy-title">Инновации</div>
+                    <div class="strategy-desc">Всегда создаю и применяю новое. Не копирую — изобретаю.</div>
+                </div>
+            </div>
+            <div class="strategy-card">
+                <div class="strategy-num">2</div>
+                <div class="strategy-content">
+                    <div class="strategy-title">80/20</div>
+                    <div class="strategy-desc">20% усилий дают 80% результата. Фокус на рычаге.</div>
+                </div>
+            </div>
+            <div class="strategy-card">
+                <div class="strategy-num">3</div>
+                <div class="strategy-content">
+                    <div class="strategy-title">Антихрупкость</div>
+                    <div class="strategy-desc">Становлюсь сильнее от стресса и хаоса.</div>
+                </div>
+            </div>
+            <div class="strategy-card">
+                <div class="strategy-num">4</div>
+                <div class="strategy-content">
+                    <div class="strategy-title">Пассивный доход</div>
+                    <div class="strategy-desc">Деньги работают пока сплю. Приложения, системы.</div>
+                </div>
+            </div>
+            <div class="strategy-card">
+                <div class="strategy-num">5</div>
+                <div class="strategy-content">
+                    <div class="strategy-title">Фокус</div>
+                    <div class="strategy-desc">Одна цель. Одна задача. До конца.</div>
+                </div>
+            </div>
+            <div class="strategy-card">
+                <div class="strategy-num">6</div>
+                <div class="strategy-content">
+                    <div class="strategy-title">Скорость</div>
+                    <div class="strategy-desc">Быстро делаю, быстро фейлю, быстро учусь.</div>
+                </div>
+            </div>
+        </div>
     </section>
     
     <section class="progress-section" id="progress">
@@ -974,7 +1076,7 @@
     </section>
     
     <footer class="footer">
-        v0.7 · TOOYAKOV · Обновлено: 06.02.2026 · Дорогу осилит идущий
+        v0.8 · TOOYAKOV · Обновлено: 06.02.2026 · Дорогу осилит идущий
     </footer>
     
     <script>
