@@ -373,14 +373,23 @@
         }
         
         .week-btn {
-            padding: 8px 16px;
+            padding: 6px 12px;
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
+            border-radius: 15px;
             color: #6b7280;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             cursor: pointer;
             transition: all 0.3s;
+        }
+        
+        .month-label {
+            width: 100%;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #8b5cf6;
+            margin: 10px 0 5px 0;
+            font-weight: 600;
         }
         
         .week-btn:hover {
@@ -468,6 +477,21 @@
             margin-top: 10px;
             font-size: 0.75rem;
             color: #6b7280;
+        }
+        
+        .chart-date {
+            font-size: 0.65rem;
+            color: #4b5563;
+        }
+        
+        .chart-note-dot {
+            font-size: 0.6rem;
+            margin-top: 3px;
+        }
+        
+        .chart-bar-wrapper:hover .chart-bar {
+            opacity: 0.8;
+            transform: scaleY(1.05);
         }
         
         .chart-summary {
@@ -648,7 +672,7 @@
 </head>
 <body>
     <section class="hero">
-        <div class="badge">v0.3 · Публичная цель</div>
+        <div class="badge">v0.4 · Публичная цель</div>
         <h1 class="title">ПЕРВАЯ КВАРТИРА</h1>
         <div class="goal-amount"><span>50 000 000 ₸</span></div>
         
@@ -812,7 +836,7 @@
     </section>
     
     <footer class="footer">
-        v0.3 · Обновлено: 05.02.2026 23:58 · Дорогу осилит идущий
+        v0.4 · Обновлено: 06.02.2026 00:05 · Дорогу осилит идущий
     </footer>
     
     <script>
@@ -821,23 +845,55 @@
         const DEADLINE = new Date('2026-07-21T00:00:00+05:00');
         const WEEK_TARGET = 2100000;
         
-        // Данные по неделям (будут обновляться)
-        const weeksData = [
-            { 
-                num: 1, 
-                dates: '5 - 9 фев', 
-                days: ['Чт', 'Пт', 'Сб', 'Вс'],
-                earnings: [100000, 0, 0, 0], // Четверг уже 100к
-                target: 2100000 
-            },
-            { num: 2, dates: '10 - 16 фев', days: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'], earnings: [0,0,0,0,0,0,0], target: 2100000 },
-            { num: 3, dates: '17 - 23 фев', days: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'], earnings: [0,0,0,0,0,0,0], target: 2100000 },
-            { num: 4, dates: '24 - 28 фев', days: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт'], earnings: [0,0,0,0,0], target: 700000 },
-            { num: 5, dates: '1 - 7 мар', days: ['Сб', 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт'], earnings: [0,0,0,0,0,0,0], target: 2100000 },
-            { num: 6, dates: '8 - 14 мар', days: ['Сб', 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт'], earnings: [0,0,0,0,0,0,0], target: 2100000 },
-            { num: 7, dates: '15 - 21 мар', days: ['Сб', 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт'], earnings: [0,0,0,0,0,0,0], target: 2100000 },
-            { num: 8, dates: '22 - 28 мар', days: ['Сб', 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт'], earnings: [0,0,0,0,0,0,0], target: 2100000 },
-        ];
+        // Генерация всех недель от 5 февраля до 21 июля 2026
+        function generateAllWeeks() {
+            const weeks = [];
+            const startDate = new Date('2026-02-05');
+            const endDate = new Date('2026-07-21');
+            const dayNames = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+            const monthNames = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл'];
+            
+            let currentDate = new Date(startDate);
+            let weekNum = 1;
+            
+            while (currentDate < endDate) {
+                const weekStart = new Date(currentDate);
+                const days = [];
+                const dayDates = [];
+                
+                // Собираем дни недели
+                for (let i = 0; i < 7 && currentDate < endDate; i++) {
+                    days.push(dayNames[currentDate.getDay()]);
+                    dayDates.push(currentDate.getDate());
+                    currentDate.setDate(currentDate.getDate() + 1);
+                }
+                
+                const weekEnd = new Date(currentDate);
+                weekEnd.setDate(weekEnd.getDate() - 1);
+                
+                const dateStr = `${weekStart.getDate()} - ${weekEnd.getDate()} ${monthNames[weekEnd.getMonth()]}`;
+                
+                weeks.push({
+                    num: weekNum,
+                    dates: dateStr,
+                    days: days,
+                    dayDates: dayDates,
+                    earnings: new Array(days.length).fill(0),
+                    notes: new Array(days.length).fill(''),
+                    target: 2100000
+                });
+                
+                weekNum++;
+            }
+            
+            // Первая неделя особая - начинается с четверга, уже 100к
+            weeks[0].earnings[0] = 100000;
+            weeks[0].notes[0] = '🚀 Старт!';
+            
+            return weeks;
+        }
+        
+        const weeksData = generateAllWeeks();
         
         let currentWeek = 0;
         
@@ -853,20 +909,39 @@
         
         function renderWeekButtons() {
             const container = document.getElementById('weekButtons');
-            container.innerHTML = weeksData.map((week, i) => {
-                const total = week.earnings.reduce((a, b) => a + b, 0);
-                const completed = total >= week.target;
-                const isActive = i === currentWeek;
-                let cls = 'week-btn';
-                if (isActive) cls += ' active';
-                if (completed) cls += ' completed';
-                return `<button class="${cls}" onclick="selectWeek(${i})">Нед ${week.num}</button>`;
-            }).join('');
+            const months = ['Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль'];
+            const monthRanges = [
+                [0, 3],   // Февраль: недели 1-4
+                [3, 8],   // Март: недели 5-8
+                [8, 12],  // Апрель: недели 9-12
+                [12, 17], // Май: недели 13-17
+                [17, 21], // Июнь: недели 18-21
+                [21, weeksData.length] // Июль: остальные
+            ];
+            
+            let html = '';
+            months.forEach((month, mIdx) => {
+                const [start, end] = monthRanges[mIdx];
+                if (start >= weeksData.length) return;
+                
+                html += `<div class="month-label">${month}</div>`;
+                for (let i = start; i < Math.min(end, weeksData.length); i++) {
+                    const week = weeksData[i];
+                    const total = week.earnings.reduce((a, b) => a + b, 0);
+                    const completed = total >= week.target;
+                    const isActive = i === currentWeek;
+                    let cls = 'week-btn';
+                    if (isActive) cls += ' active';
+                    if (completed) cls += ' completed';
+                    html += `<button class="${cls}" onclick="selectWeek(${i})">${week.num}</button>`;
+                }
+            });
+            container.innerHTML = html;
         }
         
         function renderChart() {
             const week = weeksData[currentWeek];
-            const maxEarning = Math.max(...week.earnings, week.target / week.days.length);
+            const maxEarning = Math.max(...week.earnings, week.target / week.days.length, 300000);
             
             document.getElementById('weekDates').textContent = week.dates;
             document.getElementById('weekTarget').textContent = formatNumber(week.target) + ' ₸';
@@ -881,17 +956,32 @@
             const barsContainer = document.getElementById('chartBars');
             barsContainer.innerHTML = week.days.map((day, i) => {
                 const earning = week.earnings[i];
-                const height = earning > 0 ? Math.max((earning / maxEarning) * 100, 10) : 5;
-                const isCurrent = currentWeek === 0 && i === 0; // Первый день первой недели
+                const note = week.notes[i] || '';
+                const height = earning > 0 ? Math.max((earning / maxEarning) * 100, 15) : 8;
+                const hasNote = note.length > 0;
+                const hasEarning = earning > 0;
+                
                 return `
-                    <div class="chart-bar-wrapper">
-                        <div class="chart-bar ${isCurrent ? 'current' : ''}" style="height: ${height}%">
-                            ${earning > 0 ? `<span class="chart-bar-value">${formatShort(earning)}</span>` : ''}
+                    <div class="chart-bar-wrapper" onclick="showDayInfo(${currentWeek}, ${i})" style="cursor:pointer">
+                        <div class="chart-bar ${hasEarning ? 'current' : ''}" style="height: ${height}%">
+                            ${hasEarning ? `<span class="chart-bar-value">${formatShort(earning)}</span>` : ''}
                         </div>
                         <span class="chart-day">${day}</span>
+                        <span class="chart-date">${week.dayDates[i]}</span>
+                        ${hasNote ? '<span class="chart-note-dot">📝</span>' : ''}
                     </div>
                 `;
             }).join('');
+        }
+        
+        function showDayInfo(weekIdx, dayIdx) {
+            const week = weeksData[weekIdx];
+            const earning = week.earnings[dayIdx];
+            const note = week.notes[dayIdx] || 'Пока пусто';
+            const day = week.days[dayIdx];
+            const date = week.dayDates[dayIdx];
+            
+            alert(`📅 ${day}, ${date} ${week.dates.split(' ')[2]}\n💰 ${formatNumber(earning)} ₸\n📝 ${note}`);
         }
         
         function selectWeek(index) {
