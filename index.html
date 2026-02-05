@@ -392,6 +392,92 @@
             font-weight: 600;
         }
         
+        .month-tabs {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .month-tab {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: #6b7280;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .month-tab:hover {
+            border-color: rgba(139, 92, 246, 0.5);
+            color: #a5b4fc;
+        }
+        
+        .month-tab.active {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: #8b5cf6;
+            color: #fff;
+        }
+        
+        .weeks-row {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        /* Progress Section */
+        .progress-section {
+            padding: 60px 20px;
+            background: linear-gradient(180deg, #111118 0%, #0a0a0f 100%);
+        }
+        
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .progress-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .progress-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .progress-card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .progress-card-value {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        
+        .progress-card-value.green { color: #10b981; }
+        .progress-card-value.purple { color: #8b5cf6; }
+        .progress-card-value.orange { color: #f59e0b; }
+        
+        .progress-card-label {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+        
         .week-btn:hover {
             border-color: rgba(139, 92, 246, 0.5);
             color: #a5b4fc;
@@ -672,7 +758,7 @@
 </head>
 <body>
     <section class="hero">
-        <div class="badge">v0.4 · Публичная цель</div>
+        <div class="badge">v0.5 · Публичная цель</div>
         <h1 class="title">ПЕРВАЯ КВАРТИРА</h1>
         <div class="goal-amount"><span>50 000 000 ₸</span></div>
         
@@ -764,8 +850,12 @@
         <div class="weekly-chart">
             <div class="chart-title">📊 График по неделям</div>
             
-            <div class="week-buttons" id="weekButtons">
-                <!-- Кнопки генерируются JS -->
+            <div class="month-tabs" id="monthTabs">
+                <!-- Месяцы генерируются JS -->
+            </div>
+            
+            <div class="weeks-row" id="weekButtons">
+                <!-- Недели месяца генерируются JS -->
             </div>
             
             <div class="chart-container">
@@ -795,12 +885,38 @@
             </div>
         </div>
         
-        <a href="#gallery" class="scroll-indicator">
-            <span>Квартира мечты</span>
+        <a href="#progress" class="scroll-indicator">
+            <span>Прогресс</span>
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
             </svg>
         </a>
+    </section>
+    
+    <section class="progress-section" id="progress">
+        <h2 class="section-title">📈 Прогресс развития</h2>
+        <p class="section-subtitle">Путь к цели</p>
+        
+        <div class="progress-grid">
+            <div class="progress-card">
+                <div class="progress-card-icon">📅</div>
+                <div class="progress-card-title">Недель пройдено</div>
+                <div class="progress-card-value purple" id="weeksCompleted">1 / 24</div>
+                <div class="progress-card-label">до 21 июля</div>
+            </div>
+            <div class="progress-card">
+                <div class="progress-card-icon">💰</div>
+                <div class="progress-card-title">Заработано всего</div>
+                <div class="progress-card-value green" id="totalEarned">100 000 ₸</div>
+                <div class="progress-card-label">из 50 000 000 ₸</div>
+            </div>
+            <div class="progress-card">
+                <div class="progress-card-icon">🔥</div>
+                <div class="progress-card-title">Streak</div>
+                <div class="progress-card-value orange" id="streak">1 день</div>
+                <div class="progress-card-label">подряд с доходом</div>
+            </div>
+        </div>
     </section>
     
     <section class="gallery-section" id="gallery">
@@ -836,7 +952,7 @@
     </section>
     
     <footer class="footer">
-        v0.4 · Обновлено: 06.02.2026 00:05 · Дорогу осилит идущий
+        v0.5 · Обновлено: 06.02.2026 00:17 · Дорогу осилит идущий
     </footer>
     
     <script>
@@ -896,6 +1012,17 @@
         const weeksData = generateAllWeeks();
         
         let currentWeek = 0;
+        let currentMonth = 0;
+        
+        const months = ['Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль'];
+        const monthRanges = [
+            [0, 4],   // Февраль
+            [4, 8],   // Март
+            [8, 13],  // Апрель
+            [13, 17], // Май
+            [17, 21], // Июнь
+            [21, 24]  // Июль
+        ];
         
         function formatNumber(num) {
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -907,36 +1034,54 @@
             return num.toString();
         }
         
+        function renderMonthTabs() {
+            const container = document.getElementById('monthTabs');
+            container.innerHTML = months.map((month, idx) => {
+                const isActive = idx === currentMonth;
+                return `<button class="month-tab ${isActive ? 'active' : ''}" onclick="selectMonth(${idx})">${month}</button>`;
+            }).join('');
+        }
+        
         function renderWeekButtons() {
             const container = document.getElementById('weekButtons');
-            const months = ['Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль'];
-            const monthRanges = [
-                [0, 3],   // Февраль: недели 1-4
-                [3, 8],   // Март: недели 5-8
-                [8, 12],  // Апрель: недели 9-12
-                [12, 17], // Май: недели 13-17
-                [17, 21], // Июнь: недели 18-21
-                [21, weeksData.length] // Июль: остальные
-            ];
+            const [start, end] = monthRanges[currentMonth];
             
             let html = '';
-            months.forEach((month, mIdx) => {
-                const [start, end] = monthRanges[mIdx];
-                if (start >= weeksData.length) return;
-                
-                html += `<div class="month-label">${month}</div>`;
-                for (let i = start; i < Math.min(end, weeksData.length); i++) {
-                    const week = weeksData[i];
-                    const total = week.earnings.reduce((a, b) => a + b, 0);
-                    const completed = total >= week.target;
-                    const isActive = i === currentWeek;
-                    let cls = 'week-btn';
-                    if (isActive) cls += ' active';
-                    if (completed) cls += ' completed';
-                    html += `<button class="${cls}" onclick="selectWeek(${i})">${week.num}</button>`;
+            for (let i = start; i < Math.min(end, weeksData.length); i++) {
+                const week = weeksData[i];
+                const total = week.earnings.reduce((a, b) => a + b, 0);
+                const completed = total >= week.target;
+                const isActive = i === currentWeek;
+                let cls = 'week-btn';
+                if (isActive) cls += ' active';
+                if (completed) cls += ' completed';
+                html += `<button class="${cls}" onclick="selectWeek(${i})">${week.num}</button>`;
+            }
+            container.innerHTML = html;
+        }
+        
+        function selectMonth(idx) {
+            currentMonth = idx;
+            const [start] = monthRanges[idx];
+            currentWeek = start;
+            renderMonthTabs();
+            renderWeekButtons();
+            renderChart();
+        }
+        
+        function updateProgress() {
+            const totalEarned = weeksData.reduce((sum, week) => 
+                sum + week.earnings.reduce((a, b) => a + b, 0), 0);
+            
+            let weeksCompleted = 0;
+            weeksData.forEach(week => {
+                if (week.earnings.reduce((a, b) => a + b, 0) >= week.target) {
+                    weeksCompleted++;
                 }
             });
-            container.innerHTML = html;
+            
+            document.getElementById('totalEarned').textContent = formatNumber(totalEarned) + ' ₸';
+            document.getElementById('weeksCompleted').textContent = `${weeksCompleted} / ${weeksData.length}`;
         }
         
         function renderChart() {
@@ -1030,8 +1175,10 @@
             setInterval(updateCountdown, 1000);
             
             // Инициализация графика
+            renderMonthTabs();
             renderWeekButtons();
             renderChart();
+            updateProgress();
         }
         
         init();
