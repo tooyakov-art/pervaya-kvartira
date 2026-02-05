@@ -273,6 +273,81 @@
             letter-spacing: 1px;
         }
         
+        /* Monthly Goals */
+        .monthly-goals {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease 1.2s both;
+        }
+        
+        .monthly-title {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        
+        .monthly-subtitle {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+        
+        .weekly-target {
+            text-align: center;
+            padding: 20px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .weekly-target-label {
+            font-size: 0.85rem;
+            color: #10b981;
+            margin-bottom: 5px;
+        }
+        
+        .weekly-target-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #10b981;
+        }
+        
+        .months-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .month-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .month-card.current {
+            border-color: rgba(139, 92, 246, 0.5);
+            background: rgba(139, 92, 246, 0.1);
+        }
+        
+        .month-name {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-bottom: 5px;
+        }
+        
+        .month-goal {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        
         /* Scroll indicator */
         .scroll-indicator {
             position: absolute;
@@ -424,7 +499,7 @@
 </head>
 <body>
     <section class="hero">
-        <div class="badge">Публичная цель</div>
+        <div class="badge">v0.2 · Публичная цель</div>
         <h1 class="title">ПЕРВАЯ КВАРТИРА</h1>
         <div class="goal-amount"><span>50 000 000 ₸</span></div>
         
@@ -476,6 +551,43 @@
             </div>
         </div>
         
+        <div class="monthly-goals">
+            <div class="monthly-title">📈 План по месяцам</div>
+            <div class="monthly-subtitle">Сколько нужно заработать</div>
+            
+            <div class="weekly-target">
+                <div class="weekly-target-label">Каждую неделю</div>
+                <div class="weekly-target-value">2 100 000 ₸</div>
+            </div>
+            
+            <div class="months-grid">
+                <div class="month-card current">
+                    <div class="month-name">Февраль</div>
+                    <div class="month-goal">7 000 000 ₸</div>
+                </div>
+                <div class="month-card">
+                    <div class="month-name">Март</div>
+                    <div class="month-goal">9 200 000 ₸</div>
+                </div>
+                <div class="month-card">
+                    <div class="month-name">Апрель</div>
+                    <div class="month-goal">9 000 000 ₸</div>
+                </div>
+                <div class="month-card">
+                    <div class="month-name">Май</div>
+                    <div class="month-goal">9 200 000 ₸</div>
+                </div>
+                <div class="month-card">
+                    <div class="month-name">Июнь</div>
+                    <div class="month-goal">9 000 000 ₸</div>
+                </div>
+                <div class="month-card">
+                    <div class="month-name">Июль</div>
+                    <div class="month-goal">6 300 000 ₸</div>
+                </div>
+            </div>
+        </div>
+        
         <a href="#gallery" class="scroll-indicator">
             <span>Квартира мечты</span>
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -517,7 +629,7 @@
     </section>
     
     <footer class="footer">
-        Обновлено: 05.02.2026 22:34 · Дорогу осилит идущий
+        v0.2 · Обновлено: 05.02.2026 23:55 · Дорогу осилит идущий
     </footer>
     
     <script>
