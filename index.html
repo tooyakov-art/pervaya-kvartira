@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOOYAKOV — Прогресс развития</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Cinzel:wght@400;700;900&family=MedievalSharp&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -18,9 +18,72 @@
         
         body {
             font-family: 'Inter', system-ui, sans-serif;
-            background: #0a0a0f;
+            background: #0a0808;
             color: #fff;
             overflow-x: hidden;
+        }
+        
+        /* Particles Container */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff6b35;
+            border-radius: 50%;
+            animation: float-up 8s infinite ease-out;
+            opacity: 0;
+            box-shadow: 0 0 10px #ff6b35, 0 0 20px #ff4500;
+        }
+        
+        @keyframes float-up {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+        }
+        
+        /* Fog/Mist Effect */
+        .fog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background: 
+                radial-gradient(ellipse at 20% 80%, rgba(139, 69, 19, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(255, 107, 53, 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
+            animation: fog-drift 20s infinite ease-in-out;
+        }
+        
+        @keyframes fog-drift {
+            0%, 100% { opacity: 0.8; transform: translateX(0); }
+            50% { opacity: 1; transform: translateX(20px); }
+        }
+        
+        /* Vignette Effect */
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.9);
         }
         
         /* Hero Section - Conquest Theme */
@@ -68,16 +131,23 @@
         }
         
         .title {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 800;
+            font-family: 'Cinzel', serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 900;
             text-align: center;
             margin-bottom: 10px;
-            background: linear-gradient(135deg, #ffd700 0%, #daa520 50%, #b8860b 100%);
+            background: linear-gradient(180deg, #ffd700 0%, #ff8c00 30%, #ff4500 60%, #8b0000 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: fadeInUp 0.8s ease 0.2s both;
-            text-shadow: 0 0 30px rgba(218, 165, 32, 0.3);
+            animation: fadeInUp 0.8s ease 0.2s both, glow-pulse 3s infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 69, 0, 0.5)) drop-shadow(0 0 40px rgba(255, 140, 0, 0.3));
+            letter-spacing: 8px;
+        }
+        
+        @keyframes glow-pulse {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 69, 0, 0.5)) drop-shadow(0 0 40px rgba(255, 140, 0, 0.3)); }
+            50% { filter: drop-shadow(0 0 30px rgba(255, 69, 0, 0.8)) drop-shadow(0 0 60px rgba(255, 140, 0, 0.5)); }
         }
         
         .subtitle {
@@ -569,17 +639,21 @@
         }
         
         .quote-text {
-            font-size: 1.8rem;
-            font-weight: 300;
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
             font-style: italic;
-            color: #a5b4fc;
+            color: #daa520;
             margin-bottom: 20px;
             line-height: 1.4;
+            text-shadow: 0 0 20px rgba(218, 165, 32, 0.4);
+            letter-spacing: 3px;
         }
         
         .quote-author {
-            font-size: 1rem;
-            color: #6b7280;
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.1rem;
+            color: #8b7355;
         }
         
         /* Weapons Section */
@@ -626,18 +700,42 @@
         
         .oath {
             text-align: center;
-            padding: 20px;
-            background: rgba(139, 69, 19, 0.1);
-            border-radius: 10px;
-            max-width: 400px;
-            margin: 0 auto;
+            padding: 40px 50px;
+            background: 
+                linear-gradient(135deg, rgba(139, 90, 43, 0.3) 0%, rgba(101, 67, 33, 0.4) 100%);
+            border-radius: 5px;
+            max-width: 500px;
+            margin: 30px auto 0;
+            position: relative;
+            border: 2px solid rgba(139, 90, 43, 0.5);
+            box-shadow: 
+                0 0 30px rgba(255, 107, 53, 0.2),
+                inset 0 0 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .oath::before {
+            content: '🔥';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            animation: flame-flicker 0.5s infinite alternate;
+        }
+        
+        @keyframes flame-flicker {
+            0% { transform: translateX(-50%) scale(1); opacity: 0.8; }
+            100% { transform: translateX(-50%) scale(1.1); opacity: 1; }
         }
         
         .oath-text {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #cd853f;
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: #daa520;
             font-style: italic;
+            text-shadow: 0 0 10px rgba(218, 165, 32, 0.5);
+            letter-spacing: 2px;
         }
         
         .week-btn:hover {
@@ -797,21 +895,25 @@
         }
         
         .section-title {
+            font-family: 'Cinzel', serif;
             text-align: center;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
             margin-bottom: 15px;
-            background: linear-gradient(135deg, #fff, #a5b4fc);
+            background: linear-gradient(180deg, #ffd700, #ff8c00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 140, 0, 0.3);
+            letter-spacing: 4px;
         }
         
         .section-subtitle {
             text-align: center;
-            color: #6b7280;
+            color: #8b7355;
             margin-bottom: 50px;
             font-size: 1.1rem;
+            font-style: italic;
         }
         
         .gallery {
@@ -919,8 +1021,12 @@
     </style>
 </head>
 <body>
+    <div class="fog"></div>
+    <div class="vignette"></div>
+    <div class="particles" id="particles"></div>
+    
     <section class="hero">
-        <div class="badge">v0.10 · ЗАВОЕВАНИЕ</div>
+        <div class="badge">v0.11 · CONQUEST</div>
         <h1 class="title">TOOYAKOV</h1>
         <p class="subtitle">Диас Мухтарович · Завоеватель территорий</p>
         <div class="goal-amount"><span>50 000 000 ₸</span></div>
@@ -1159,7 +1265,7 @@
     </section>
     
     <footer class="footer">
-        v0.10 · TOOYAKOV · CONQUEST · Дорогу осилит идущий
+        v0.11 · TOOYAKOV · CONQUEST · Дорогу осилит идущий
     </footer>
     
     <script>
@@ -1391,6 +1497,20 @@
         }
         
         init();
+        
+        // Create fire particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (5 + Math.random() * 5) + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
     </script>
 </body>
 </html>
