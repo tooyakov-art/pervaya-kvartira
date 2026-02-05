@@ -213,6 +213,66 @@
             color: #6b7280;
         }
         
+        /* Deadline */
+        .deadline {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease 1s both;
+        }
+        
+        .deadline-title {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+        
+        .deadline-date {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+        
+        .deadline-reason {
+            text-align: center;
+            font-size: 0.95rem;
+            color: #8b5cf6;
+            margin-bottom: 25px;
+        }
+        
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        
+        .countdown-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 15px;
+            padding: 15px 10px;
+            text-align: center;
+        }
+        
+        .countdown-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        
+        .countdown-label {
+            font-size: 0.7rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
         /* Scroll indicator */
         .scroll-indicator {
             position: absolute;
@@ -392,6 +452,30 @@
             </div>
         </div>
         
+        <div class="deadline">
+            <div class="deadline-title">Дедлайн</div>
+            <div class="deadline-date">21 июля 2026</div>
+            <div class="deadline-reason">🎂 Мне исполнится 23 года</div>
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-value" id="days">-</div>
+                    <div class="countdown-label">дней</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="hours">-</div>
+                    <div class="countdown-label">часов</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="minutes">-</div>
+                    <div class="countdown-label">минут</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="seconds">-</div>
+                    <div class="countdown-label">секунд</div>
+                </div>
+            </div>
+        </div>
+        
         <a href="#gallery" class="scroll-indicator">
             <span>Квартира мечты</span>
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -439,9 +523,33 @@
     <script>
         const SAVED = 0;
         const GOAL = 50000000;
+        const DEADLINE = new Date('2026-07-21T00:00:00+05:00');
         
         function formatNumber(num) {
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        }
+        
+        function updateCountdown() {
+            const now = new Date();
+            const diff = DEADLINE - now;
+            
+            if (diff <= 0) {
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+                return;
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
         }
         
         function init() {
@@ -456,6 +564,9 @@
             document.getElementById('saved').textContent = formatNumber(SAVED) + ' ₸';
             document.getElementById('savedLabel').textContent = formatNumber(SAVED) + ' ₸';
             document.getElementById('remaining').textContent = formatNumber(remaining) + ' ₸';
+            
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
         }
         
         init();
