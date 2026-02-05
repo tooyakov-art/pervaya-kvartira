@@ -66,7 +66,7 @@
                 radial-gradient(ellipse at 20% 80%, rgba(139, 69, 19, 0.15) 0%, transparent 50%),
                 radial-gradient(ellipse at 80% 20%, rgba(255, 107, 53, 0.1) 0%, transparent 40%),
                 radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
-            animation: fog-drift 20s infinite ease-in-out;
+            /* animation: fog-drift 20s infinite ease-in-out; */
         }
         
         @keyframes fog-drift {
@@ -140,7 +140,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: fadeInUp 0.8s ease 0.2s both, glow-pulse 3s infinite;
+            animation: fadeInUp 0.8s ease 0.2s both;
             filter: drop-shadow(0 0 20px rgba(255, 69, 0, 0.5)) drop-shadow(0 0 40px rgba(255, 140, 0, 0.3));
             letter-spacing: 8px;
         }
@@ -1508,7 +1508,7 @@
         // Create fire particles
         function createParticles() {
             const container = document.getElementById('particles');
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 10; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
