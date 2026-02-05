@@ -346,9 +346,16 @@
             border-radius: 12px;
             padding: 15px;
             text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
         }
         
-        .month-card.current {
+        .month-card:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .month-card.active {
             border-color: rgba(139, 92, 246, 0.5);
             background: rgba(139, 92, 246, 0.1);
         }
@@ -775,7 +782,7 @@
 </head>
 <body>
     <section class="hero">
-        <div class="badge">v0.6 · Из грязи в князи</div>
+        <div class="badge">v0.7 · Из грязи в князи</div>
         <h1 class="title">TOOYAKOV</h1>
         <p class="subtitle">Диас Мухтарович · Монополист</p>
         <div class="goal-amount"><span>50 000 000 ₸</span></div>
@@ -838,28 +845,28 @@
                 <div class="weekly-target-value">2 100 000 ₸</div>
             </div>
             
-            <div class="months-grid">
-                <div class="month-card current">
+            <div class="months-grid" id="monthsGrid">
+                <div class="month-card" onclick="selectMonth(0)">
                     <div class="month-name">Февраль</div>
                     <div class="month-goal">7 000 000 ₸</div>
                 </div>
-                <div class="month-card">
+                <div class="month-card" onclick="selectMonth(1)">
                     <div class="month-name">Март</div>
                     <div class="month-goal">9 200 000 ₸</div>
                 </div>
-                <div class="month-card">
+                <div class="month-card" onclick="selectMonth(2)">
                     <div class="month-name">Апрель</div>
                     <div class="month-goal">9 000 000 ₸</div>
                 </div>
-                <div class="month-card">
+                <div class="month-card" onclick="selectMonth(3)">
                     <div class="month-name">Май</div>
                     <div class="month-goal">9 200 000 ₸</div>
                 </div>
-                <div class="month-card">
+                <div class="month-card" onclick="selectMonth(4)">
                     <div class="month-name">Июнь</div>
                     <div class="month-goal">9 000 000 ₸</div>
                 </div>
-                <div class="month-card">
+                <div class="month-card" onclick="selectMonth(5)">
                     <div class="month-name">Июль</div>
                     <div class="month-goal">6 300 000 ₸</div>
                 </div>
@@ -868,10 +875,6 @@
         
         <div class="weekly-chart">
             <div class="chart-title">📊 График по неделям</div>
-            
-            <div class="month-tabs" id="monthTabs">
-                <!-- Месяцы генерируются JS -->
-            </div>
             
             <div class="weeks-row" id="weekButtons">
                 <!-- Недели месяца генерируются JS -->
@@ -971,7 +974,7 @@
     </section>
     
     <footer class="footer">
-        v0.6 · TOOYAKOV · Обновлено: 06.02.2026 · Дорогу осилит идущий
+        v0.7 · TOOYAKOV · Обновлено: 06.02.2026 · Дорогу осилит идущий
     </footer>
     
     <script>
@@ -1053,12 +1056,14 @@
             return num.toString();
         }
         
-        function renderMonthTabs() {
-            const container = document.getElementById('monthTabs');
-            container.innerHTML = months.map((month, idx) => {
-                const isActive = idx === currentMonth;
-                return `<button class="month-tab ${isActive ? 'active' : ''}" onclick="selectMonth(${idx})">${month}</button>`;
-            }).join('');
+        function updateMonthCards() {
+            const cards = document.querySelectorAll('.month-card');
+            cards.forEach((card, idx) => {
+                card.classList.remove('active');
+                if (idx === currentMonth) {
+                    card.classList.add('active');
+                }
+            });
         }
         
         function renderWeekButtons() {
@@ -1083,7 +1088,7 @@
             currentMonth = idx;
             const [start] = monthRanges[idx];
             currentWeek = start;
-            renderMonthTabs();
+            updateMonthCards();
             renderWeekButtons();
             renderChart();
         }
@@ -1194,7 +1199,7 @@
             setInterval(updateCountdown, 1000);
             
             // Инициализация графика
-            renderMonthTabs();
+            updateMonthCards();
             renderWeekButtons();
             renderChart();
             updateProgress();
