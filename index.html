@@ -23,7 +23,7 @@
             overflow-x: hidden;
         }
         
-        /* Hero Section */
+        /* Hero Section - Conquest Theme */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -33,9 +33,9 @@
             padding: 40px 20px;
             position: relative;
             background: 
-                radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 50%, rgba(14, 165, 233, 0.1) 0%, transparent 40%),
-                radial-gradient(ellipse at 20% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 40%);
+                radial-gradient(ellipse at 50% 0%, rgba(180, 140, 50, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(139, 69, 19, 0.08) 0%, transparent 40%),
+                radial-gradient(ellipse at 20% 80%, rgba(100, 50, 30, 0.08) 0%, transparent 40%);
         }
         
         .hero::before {
@@ -72,11 +72,12 @@
             font-weight: 800;
             text-align: center;
             margin-bottom: 10px;
-            background: linear-gradient(135deg, #fff 0%, #a5b4fc 50%, #818cf8 100%);
+            background: linear-gradient(135deg, #ffd700 0%, #daa520 50%, #b8860b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: fadeInUp 0.8s ease 0.2s both;
+            text-shadow: 0 0 30px rgba(218, 165, 32, 0.3);
         }
         
         .subtitle {
@@ -106,11 +107,11 @@
         }
         
         .goal-amount span {
-            background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 50%, #d946ef 100%);
+            background: linear-gradient(135deg, #ffd700 0%, #f4a460 50%, #cd853f 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.4));
+            filter: drop-shadow(0 0 30px rgba(218, 165, 32, 0.4));
         }
         
         /* Progress Bar */
@@ -159,7 +160,7 @@
         .progress-bar {
             height: 100%;
             border-radius: 50px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7);
+            background: linear-gradient(90deg, #b8860b, #daa520, #ffd700);
             position: relative;
             transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
             min-width: 16px;
@@ -529,7 +530,7 @@
         .strategy-num {
             width: 32px;
             height: 32px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            background: linear-gradient(135deg, #b8860b, #daa520);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -537,6 +538,7 @@
             font-weight: 800;
             font-size: 0.9rem;
             flex-shrink: 0;
+            color: #000;
         }
         
         .strategy-content {
@@ -578,6 +580,64 @@
         .quote-author {
             font-size: 1rem;
             color: #6b7280;
+        }
+        
+        /* Weapons Section */
+        .weapons-section {
+            padding: 60px 20px;
+            background: linear-gradient(180deg, #0a0a0f 0%, #111118 100%);
+        }
+        
+        .weapons-grid {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            max-width: 500px;
+            margin: 0 auto 30px;
+            flex-wrap: wrap;
+        }
+        
+        .weapon-card {
+            background: rgba(218, 165, 32, 0.05);
+            border: 1px solid rgba(218, 165, 32, 0.2);
+            border-radius: 15px;
+            padding: 25px 40px;
+            text-align: center;
+            flex: 1;
+            min-width: 180px;
+        }
+        
+        .weapon-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .weapon-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #daa520;
+            margin-bottom: 5px;
+        }
+        
+        .weapon-desc {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+        
+        .oath {
+            text-align: center;
+            padding: 20px;
+            background: rgba(139, 69, 19, 0.1);
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .oath-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #cd853f;
+            font-style: italic;
         }
         
         .week-btn:hover {
@@ -860,9 +920,9 @@
 </head>
 <body>
     <section class="hero">
-        <div class="badge">v0.9 · Из грязи в князи</div>
+        <div class="badge">v0.10 · ЗАВОЕВАНИЕ</div>
         <h1 class="title">TOOYAKOV</h1>
-        <p class="subtitle">Диас Мухтарович · Монополист</p>
+        <p class="subtitle">Диас Мухтарович · Завоеватель территорий</p>
         <div class="goal-amount"><span>50 000 000 ₸</span></div>
         <p class="goal-label">🏠 Первая квартира к 23 годам · без ипотеки и кредита</p>
         
@@ -994,8 +1054,8 @@
     </section>
     
     <section class="strategies-section" id="strategies">
-        <h2 class="section-title">⚔️ Стратегии</h2>
-        <p class="section-subtitle">Принципы достижения цели</p>
+        <h2 class="section-title">⚔️ Военные стратегии</h2>
+        <p class="section-subtitle">Тактика завоевания</p>
         
         <div class="strategies-grid">
             <div class="strategy-card">
@@ -1069,15 +1129,37 @@
         </div>
     </section>
     
+    <section class="weapons-section">
+        <h2 class="section-title">⚔️ Оружие завоевателя</h2>
+        <p class="section-subtitle">Только 2 инструмента. Клятва.</p>
+        
+        <div class="weapons-grid">
+            <div class="weapon-card">
+                <div class="weapon-icon">🤖</div>
+                <div class="weapon-name">Telegram Bot</div>
+                <div class="weapon-desc">Molt — второй мозг</div>
+            </div>
+            <div class="weapon-card">
+                <div class="weapon-icon">💻</div>
+                <div class="weapon-name">VS Code + AI</div>
+                <div class="weapon-desc">Армия агентов</div>
+            </div>
+        </div>
+        
+        <div class="oath">
+            <div class="oath-text">Клянусь больше ничего.</div>
+        </div>
+    </section>
+    
     <section class="quote-section">
         <div class="quote-container">
-            <div class="quote-text">"Дорогу осилит идущий"</div>
-            <div class="quote-author">— Древняя мудрость</div>
+            <div class="quote-text">"Veni, Vidi, Vici"</div>
+            <div class="quote-author">— Пришёл. Увидел. Победил.</div>
         </div>
     </section>
     
     <footer class="footer">
-        v0.9 · TOOYAKOV · Дорогу осилит идущий
+        v0.10 · TOOYAKOV · CONQUEST · Дорогу осилит идущий
     </footer>
     
     <script>
