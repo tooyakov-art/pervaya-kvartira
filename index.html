@@ -348,6 +348,155 @@
             color: #fff;
         }
         
+        /* Weekly Chart */
+        .weekly-chart {
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease 1.4s both;
+        }
+        
+        .chart-title {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        
+        .week-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .week-btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            color: #6b7280;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .week-btn:hover {
+            border-color: rgba(139, 92, 246, 0.5);
+            color: #a5b4fc;
+        }
+        
+        .week-btn.active {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: #8b5cf6;
+            color: #fff;
+        }
+        
+        .week-btn.completed {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+            color: #10b981;
+        }
+        
+        .chart-container {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 25px;
+        }
+        
+        .chart-week-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .chart-week-dates {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 5px;
+        }
+        
+        .chart-week-target {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #8b5cf6;
+        }
+        
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 150px;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .chart-bar-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .chart-bar {
+            width: 100%;
+            max-width: 40px;
+            background: linear-gradient(180deg, #8b5cf6, #6366f1);
+            border-radius: 8px 8px 0 0;
+            transition: height 0.5s ease;
+            position: relative;
+        }
+        
+        .chart-bar.current {
+            background: linear-gradient(180deg, #10b981, #059669);
+        }
+        
+        .chart-bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: #fff;
+            white-space: nowrap;
+        }
+        
+        .chart-day {
+            margin-top: 10px;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+        
+        .chart-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        
+        .chart-stat {
+            text-align: center;
+        }
+        
+        .chart-stat-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        
+        .chart-stat-value.green { color: #10b981; }
+        .chart-stat-value.purple { color: #8b5cf6; }
+        .chart-stat-value.orange { color: #f59e0b; }
+        
+        .chart-stat-label {
+            font-size: 0.7rem;
+            color: #6b7280;
+        }
+        
         /* Scroll indicator */
         .scroll-indicator {
             position: absolute;
@@ -499,7 +648,7 @@
 </head>
 <body>
     <section class="hero">
-        <div class="badge">v0.2 · Публичная цель</div>
+        <div class="badge">v0.3 · Публичная цель</div>
         <h1 class="title">ПЕРВАЯ КВАРТИРА</h1>
         <div class="goal-amount"><span>50 000 000 ₸</span></div>
         
@@ -588,6 +737,40 @@
             </div>
         </div>
         
+        <div class="weekly-chart">
+            <div class="chart-title">📊 График по неделям</div>
+            
+            <div class="week-buttons" id="weekButtons">
+                <!-- Кнопки генерируются JS -->
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-week-info">
+                    <div class="chart-week-dates" id="weekDates">5 - 9 февраля</div>
+                    <div class="chart-week-target">Цель: <span id="weekTarget">2 100 000 ₸</span></div>
+                </div>
+                
+                <div class="chart-bars" id="chartBars">
+                    <!-- Бары генерируются JS -->
+                </div>
+                
+                <div class="chart-summary">
+                    <div class="chart-stat">
+                        <div class="chart-stat-value green" id="weekEarned">100 000 ₸</div>
+                        <div class="chart-stat-label">Заработано</div>
+                    </div>
+                    <div class="chart-stat">
+                        <div class="chart-stat-value purple" id="weekTarget2">2 100 000 ₸</div>
+                        <div class="chart-stat-label">Цель недели</div>
+                    </div>
+                    <div class="chart-stat">
+                        <div class="chart-stat-value orange" id="weekRemaining">2 000 000 ₸</div>
+                        <div class="chart-stat-label">Осталось</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <a href="#gallery" class="scroll-indicator">
             <span>Квартира мечты</span>
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -629,16 +812,92 @@
     </section>
     
     <footer class="footer">
-        v0.2 · Обновлено: 05.02.2026 23:55 · Дорогу осилит идущий
+        v0.3 · Обновлено: 05.02.2026 23:58 · Дорогу осилит идущий
     </footer>
     
     <script>
         const SAVED = 100000;
         const GOAL = 50000000;
         const DEADLINE = new Date('2026-07-21T00:00:00+05:00');
+        const WEEK_TARGET = 2100000;
+        
+        // Данные по неделям (будут обновляться)
+        const weeksData = [
+            { 
+                num: 1, 
+                dates: '5 - 9 фев', 
+                days: ['Чт', 'Пт', 'Сб', 'Вс'],
+                earnings: [100000, 0, 0, 0], // Четверг уже 100к
+                target: 2100000 
+            },
+            { num: 2, dates: '10 - 16 фев', days: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'], earnings: [0,0,0,0,0,0,0], target: 2100000 },
+            { num: 3, dates: '17 - 23 фев', days: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'], earnings: [0,0,0,0,0,0,0], target: 2100000 },
+            { num: 4, dates: '24 - 28 фев', days: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт'], earnings: [0,0,0,0,0], target: 700000 },
+            { num: 5, dates: '1 - 7 мар', days: ['Сб', 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт'], earnings: [0,0,0,0,0,0,0], target: 2100000 },
+            { num: 6, dates: '8 - 14 мар', days: ['Сб', 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт'], earnings: [0,0,0,0,0,0,0], target: 2100000 },
+            { num: 7, dates: '15 - 21 мар', days: ['Сб', 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт'], earnings: [0,0,0,0,0,0,0], target: 2100000 },
+            { num: 8, dates: '22 - 28 мар', days: ['Сб', 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт'], earnings: [0,0,0,0,0,0,0], target: 2100000 },
+        ];
+        
+        let currentWeek = 0;
         
         function formatNumber(num) {
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        }
+        
+        function formatShort(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'М';
+            if (num >= 1000) return (num / 1000).toFixed(0) + 'К';
+            return num.toString();
+        }
+        
+        function renderWeekButtons() {
+            const container = document.getElementById('weekButtons');
+            container.innerHTML = weeksData.map((week, i) => {
+                const total = week.earnings.reduce((a, b) => a + b, 0);
+                const completed = total >= week.target;
+                const isActive = i === currentWeek;
+                let cls = 'week-btn';
+                if (isActive) cls += ' active';
+                if (completed) cls += ' completed';
+                return `<button class="${cls}" onclick="selectWeek(${i})">Нед ${week.num}</button>`;
+            }).join('');
+        }
+        
+        function renderChart() {
+            const week = weeksData[currentWeek];
+            const maxEarning = Math.max(...week.earnings, week.target / week.days.length);
+            
+            document.getElementById('weekDates').textContent = week.dates;
+            document.getElementById('weekTarget').textContent = formatNumber(week.target) + ' ₸';
+            document.getElementById('weekTarget2').textContent = formatNumber(week.target) + ' ₸';
+            
+            const total = week.earnings.reduce((a, b) => a + b, 0);
+            const remaining = Math.max(week.target - total, 0);
+            
+            document.getElementById('weekEarned').textContent = formatNumber(total) + ' ₸';
+            document.getElementById('weekRemaining').textContent = formatNumber(remaining) + ' ₸';
+            
+            const barsContainer = document.getElementById('chartBars');
+            barsContainer.innerHTML = week.days.map((day, i) => {
+                const earning = week.earnings[i];
+                const height = earning > 0 ? Math.max((earning / maxEarning) * 100, 10) : 5;
+                const isCurrent = currentWeek === 0 && i === 0; // Первый день первой недели
+                return `
+                    <div class="chart-bar-wrapper">
+                        <div class="chart-bar ${isCurrent ? 'current' : ''}" style="height: ${height}%">
+                            ${earning > 0 ? `<span class="chart-bar-value">${formatShort(earning)}</span>` : ''}
+                        </div>
+                        <span class="chart-day">${day}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function selectWeek(index) {
+            currentWeek = index;
+            renderWeekButtons();
+            renderChart();
         }
         
         function updateCountdown() {
@@ -679,6 +938,10 @@
             
             updateCountdown();
             setInterval(updateCountdown, 1000);
+            
+            // Инициализация графика
+            renderWeekButtons();
+            renderChart();
         }
         
         init();
